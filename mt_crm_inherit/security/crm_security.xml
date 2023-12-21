@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.module.category" id="crm_management">
+        <field name="name">CRM Leader</field>
+        <field name="description">Leader access</field>
+        <field name="sequence">20</field>
+    </record>
+
+        <record id="crm_sales_user" model="res.groups">
+        <field name="name">CRN Sales User</field>
+        <field name="category_id" ref="crm_management"/>
+    </record>
+
+    <record id="crm_team_leader" model="res.groups">
+        <field name="name">CRM Team Leader</field>
+        <field name="category_id" ref="crm_management"/>
+        <field name="implied_ids" eval="[(4, ref('crm_sales_user'))]"/>
+    </record>
+
+    <record id="crm_leader_rule" model="ir.rule">
+        <field name="name">Sales Team CRM</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="domain_force">[('user_id','=','user.id')]</field>
+        <field name="groups" eval="[(4, ref('crm_team_leader'))]"/>
+    </record>
+</odoo>

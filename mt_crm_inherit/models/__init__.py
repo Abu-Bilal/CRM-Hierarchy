@@ -1,0 +1,1 @@
+from . import mt_crm_inherit
